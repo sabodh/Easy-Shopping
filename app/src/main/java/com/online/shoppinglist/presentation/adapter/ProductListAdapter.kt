@@ -27,7 +27,6 @@ class ProductListAdapter(
                     txtPrice.text = "£"+price.toString()
                     txtCategory.text = category
                     txtRating.text = context. getString(R.string.rating_only, product.rating.rate, product.rating.count)
-
                     imageUtils.loadImage(imageUrl = image, imageView)
                     root.setOnClickListener {
                         onProductItemClick(product)

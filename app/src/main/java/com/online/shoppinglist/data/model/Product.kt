@@ -11,5 +11,6 @@ data class Product(
     val image: String,
     val price: Double,
     val title: String,
-    val rating: Rating
+    val rating: Rating,
+    val quantity: Int? = 1
 ): Parcelable

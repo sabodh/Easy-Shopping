@@ -6,15 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.online.shoppinglist.R
 import com.online.shoppinglist.data.model.Product
 import com.online.shoppinglist.databinding.FragmentProductDetailsBinding
+import com.online.shoppinglist.presentation.viewmodel.CartViewModel
 import com.online.shoppinglist.presentation.viewmodel.ProductViewModel
 import com.online.shoppinglist.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -31,6 +34,7 @@ class ProductDetailsFragment : Fragment() {
 
     private val productViewModel by viewModels<ProductViewModel>()
 
+    private val cartViewModel by activityViewModels<CartViewModel>()
     @Inject
     lateinit var imageUtils: ImageUtils
 
@@ -77,7 +81,11 @@ class ProductDetailsFragment : Fragment() {
     ) {
         fragmentProductDetailsBinding.apply {
             txtAmount.text = "£" + product.price.toString()
-            txtCategory.text = product.category
+            txtCategory.text = product.category.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.ROOT
+                ) else it.toString()
+            }
             txtSummary.text = product.description
             txtInfoHeader.text = product.title
             txtRating.text =  getString(R.string.rating_is, product.rating.rate, product.rating.count)
@@ -88,6 +96,9 @@ class ProductDetailsFragment : Fragment() {
                 Gravity.START,
                 View.VISIBLE
             )
+            btnAddCart?.setOnClickListener {
+                cartViewModel.addItemsToCart(product)
+            }
         }
 
     }
