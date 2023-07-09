@@ -26,7 +26,7 @@
             app:destination="@id/ProductListFragment" />
         <argument
             android:name="selectedProduct"
-            app:argType="com.online.shoppinglist.data.model.Product" />
+            app:argType="com.online.shoppinglist.data.network.model.Product" />
 
     </fragment>
 </navigation>

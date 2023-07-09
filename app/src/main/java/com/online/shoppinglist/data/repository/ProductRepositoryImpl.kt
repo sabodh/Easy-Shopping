@@ -1,7 +1,7 @@
 package com.online.shoppinglist.data.repository
 
-import com.online.shoppinglist.data.model.Product
-import com.online.shoppinglist.data.network.ServiceEndPoints
+import com.online.shoppinglist.data.network.model.Product
+import com.online.shoppinglist.data.network.api.ServiceEndPoints
 import com.online.shoppinglist.domain.repository.ProductRepository
 import com.online.shoppinglist.utils.ServiceResponse
 import java.net.UnknownHostException

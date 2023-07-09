@@ -1,8 +1,9 @@
 package com.online.shoppinglist.data.network
 
+import com.online.shoppinglist.data.network.api.ServiceEndPoints
 import com.online.shoppinglist.utils.Helper
-import com.online.shoppinglist.data.model.Product
-import com.online.shoppinglist.data.model.Rating
+import com.online.shoppinglist.data.network.model.Product
+import com.online.shoppinglist.domain.repository.model.Rating
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse

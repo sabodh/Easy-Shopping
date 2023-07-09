@@ -1,6 +1,6 @@
 package com.online.shoppinglist.domain.repository
 
-import com.online.shoppinglist.data.model.Product
+import com.online.shoppinglist.data.network.model.Product
 import com.online.shoppinglist.utils.ServiceResponse
 
 interface ProductRepository {

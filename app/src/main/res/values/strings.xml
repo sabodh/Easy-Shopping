@@ -18,6 +18,7 @@
     <string name="network_error">Network connection lost!.</string>
     <string name="rating_is">Rating (%1$.2f /%2$d)</string>
     <string name="rating_only">Rating %1$.2f /%2$d</string>
+    <string name="add_bag">Add to Bag</string>
 
 
 </resources>

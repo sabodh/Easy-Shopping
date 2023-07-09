@@ -3,9 +3,9 @@
 package com.online.shoppinglist.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.online.shoppinglist.data.model.Product
-import com.online.shoppinglist.data.model.Rating
-import com.online.shoppinglist.data.network.ServiceEndPoints
+import com.online.shoppinglist.data.network.model.Product
+import com.online.shoppinglist.domain.repository.model.Rating
+import com.online.shoppinglist.data.network.api.ServiceEndPoints
 import com.online.shoppinglist.utils.Status
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

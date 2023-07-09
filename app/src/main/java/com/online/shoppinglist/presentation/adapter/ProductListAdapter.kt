@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.online.shoppinglist.R
-import com.online.shoppinglist.data.model.Product
+import com.online.shoppinglist.data.network.model.Product
 import com.online.shoppinglist.databinding.RowProductBinding
 import com.online.shoppinglist.utils.ImageUtils
 
@@ -27,7 +27,6 @@ class ProductListAdapter(
                     txtPrice.text = "£"+price.toString()
                     txtCategory.text = category
                     txtRating.text = context. getString(R.string.rating_only, product.rating.rate, product.rating.count)
-
                     imageUtils.loadImage(imageUrl = image, imageView)
                     root.setOnClickListener {
                         onProductItemClick(product)

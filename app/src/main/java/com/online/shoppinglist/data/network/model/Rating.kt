@@ -1,4 +1,4 @@
-package com.online.shoppinglist.data.model
+package com.online.shoppinglist.domain.repository.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
