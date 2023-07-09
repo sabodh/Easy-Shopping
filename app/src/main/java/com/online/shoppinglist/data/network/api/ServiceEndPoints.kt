@@ -1,6 +1,6 @@
-package com.online.shoppinglist.data.network
+package com.online.shoppinglist.data.network.api
 
-import com.online.shoppinglist.data.model.Product
+import com.online.shoppinglist.data.network.model.Product
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

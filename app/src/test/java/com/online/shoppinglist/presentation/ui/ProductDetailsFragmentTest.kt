@@ -1,21 +1,14 @@
 package com.online.shoppinglist.presentation.ui
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import com.nhaarman.mockitokotlin2.whenever
-import com.online.shoppinglist.data.model.Product
-import com.online.shoppinglist.data.model.Rating
+import com.online.shoppinglist.data.network.model.Product
+import com.online.shoppinglist.domain.repository.model.Rating
 import com.online.shoppinglist.domain.repository.ProductRepository
 import com.online.shoppinglist.launchFragmentInHiltContainer
 import com.online.shoppinglist.presentation.viewmodel.ProductViewModel
 import com.online.shoppinglist.utils.NetworkUtils
 import com.online.shoppinglist.utils.ServiceResponse
-import com.online.shoppinglist.utils.SnackbarUtil
 import com.online.shoppinglist.utils.getOrAwaitValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

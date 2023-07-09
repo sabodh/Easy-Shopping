@@ -2,8 +2,9 @@ package com.online.shoppinglist.presentation.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.online.shoppinglist.data.model.Product
-import com.online.shoppinglist.domain.repository.ProductRepository
+import com.online.shoppinglist.data.network.model.Product
+import com.online.shoppinglist.domain.usecases.GetProductDetailsUseCase
+import com.online.shoppinglist.domain.usecases.GetProductsUseCase
 import com.online.shoppinglist.utils.ServiceResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
-    private val repository: ProductRepository
+    private val productsUseCase: GetProductsUseCase,
+    private val productDetailsUseCase: GetProductDetailsUseCase
 ) : ViewModel() {
 
     // Used to list the products
@@ -33,7 +35,7 @@ class ProductViewModel @Inject constructor(
     fun getProductDetails(productId: String) {
         viewModelScope.launch {
             _product.postValue(ServiceResponse.loading(null))
-            val response = repository.getProductDetails(productId)
+            val response = productDetailsUseCase(productId)
             _product.postValue(response)
         }
     }
@@ -44,7 +46,7 @@ class ProductViewModel @Inject constructor(
     fun getProductList() {
         viewModelScope.launch {
             _products.postValue(ServiceResponse.loading(null))
-            val response = repository.getProductList()
+            val response = productsUseCase()
             _products.postValue(response)
         }
     }

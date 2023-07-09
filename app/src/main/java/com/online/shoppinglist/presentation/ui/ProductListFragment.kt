@@ -5,13 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.online.shoppinglist.R
-import com.online.shoppinglist.data.model.Product
+import com.online.shoppinglist.data.network.model.Product
 import com.online.shoppinglist.databinding.FragmentProductListBinding
 import com.online.shoppinglist.presentation.adapter.ProductListAdapter
 import com.online.shoppinglist.presentation.viewmodel.ProductViewModel

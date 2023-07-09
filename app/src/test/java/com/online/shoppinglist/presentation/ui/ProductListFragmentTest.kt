@@ -4,8 +4,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.online.shoppinglist.R
-import com.online.shoppinglist.data.model.Product
-import com.online.shoppinglist.data.model.Rating
+import com.online.shoppinglist.data.network.model.Product
+import com.online.shoppinglist.domain.repository.model.Rating
 import com.online.shoppinglist.domain.repository.ProductRepository
 import com.online.shoppinglist.launchFragmentInHiltContainer
 import com.online.shoppinglist.presentation.adapter.ProductListAdapter

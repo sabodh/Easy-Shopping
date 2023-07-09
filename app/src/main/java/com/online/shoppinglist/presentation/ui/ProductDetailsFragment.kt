@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.online.shoppinglist.R
-import com.online.shoppinglist.data.model.Product
+import com.online.shoppinglist.data.network.model.Product
 import com.online.shoppinglist.databinding.FragmentProductDetailsBinding
 import com.online.shoppinglist.presentation.viewmodel.CartViewModel
 import com.online.shoppinglist.presentation.viewmodel.ProductViewModel

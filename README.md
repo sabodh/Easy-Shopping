@@ -20,4 +20,28 @@ A list of technologies/ features used within the project:
 * [Qualifiers for multiple layout design support(Large/Small Tab, Phone)]()
 * [Fake Store API service](https://fakestoreapi.com/)
 
+## Clean architecture using mvvm
+- app
+    - data
+        - local
+            - dao
+            - entities
+            - mappers
+        - remote
+            - api
+            - models(model class used for network operations)
+        - repositories(implementations)
+    - di
+        - modules
+    - domain
+        - models(model class used for business logic)
+        - repositories
+        - usecases
+    - presentation
+        - adapters
+        - fragments
+        - viewmodel
+    - utils
+    - App.kt
+
 

@@ -1,6 +1,6 @@
 package com.online.shoppinglist.di
 
-import com.online.shoppinglist.data.network.ServiceEndPoints
+import com.online.shoppinglist.data.network.api.ServiceEndPoints
 import com.online.shoppinglist.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -16,7 +16,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideServiceEndPoints(): ServiceEndPoints{
+    fun provideServiceEndPoints(): ServiceEndPoints {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

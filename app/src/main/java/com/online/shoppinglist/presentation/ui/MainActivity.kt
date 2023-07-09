@@ -11,12 +11,12 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.online.shoppinglist.R
-import com.online.shoppinglist.data.model.Product
+import com.online.shoppinglist.data.network.model.Product
 import com.online.shoppinglist.databinding.ActivityMainBinding
 import com.online.shoppinglist.databinding.ToolbarLayoutBinding
 import com.online.shoppinglist.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

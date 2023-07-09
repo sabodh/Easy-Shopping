@@ -3,8 +3,7 @@ package com.online.shoppinglist.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.online.shoppinglist.data.model.Product
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.online.shoppinglist.data.network.model.Product
 
 class CartViewModel : ViewModel() {
 

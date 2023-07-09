@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.online.shoppinglist.R
-import com.online.shoppinglist.data.model.Product
+import com.online.shoppinglist.data.network.model.Product
 import com.online.shoppinglist.databinding.RowProductBinding
 import com.online.shoppinglist.utils.ImageUtils
 

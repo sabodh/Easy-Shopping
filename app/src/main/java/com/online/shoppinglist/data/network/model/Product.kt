@@ -1,6 +1,7 @@
-package com.online.shoppinglist.data.model
+package com.online.shoppinglist.data.network.model
 
 import android.os.Parcelable
+import com.online.shoppinglist.domain.repository.model.Rating
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

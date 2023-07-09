@@ -1,8 +1,8 @@
 package com.online.shoppinglist.presentation.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.online.shoppinglist.data.model.Product
-import com.online.shoppinglist.data.model.Rating
+import com.online.shoppinglist.data.network.model.Product
+import com.online.shoppinglist.domain.repository.model.Rating
 import com.online.shoppinglist.data.repository.ProductRepositoryImpl
 import com.online.shoppinglist.utils.ServiceResponse
 import com.online.shoppinglist.utils.getOrAwaitValue
@@ -157,7 +157,7 @@ class ProductViewModelTest {
         Dispatchers.resetMain()
     }
 
-    private fun getProduct() : Product{
+    private fun getProduct() : Product {
         return Product(
             id = 2,
             title = "Mens Casual Premium Slim Fit T-Shirts",
