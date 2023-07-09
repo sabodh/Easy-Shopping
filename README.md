@@ -7,6 +7,7 @@ This application follows modularization strategy know as "by layer"
 ## Features
 A list of technologies/ features used within the project:
 * [MVVM]()
+* [Shared ViewModel]()
 * [Navigation Component]()
 * [Navigation Safe Args]()
 * [Recyclerview with ListAdapter]()
