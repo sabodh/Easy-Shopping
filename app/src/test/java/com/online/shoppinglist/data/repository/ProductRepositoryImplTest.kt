@@ -18,6 +18,8 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Response
+import java.net.HttpURLConnection
+import java.net.HttpURLConnection.HTTP_INTERNAL_ERROR
 
 @RunWith(MockitoJUnitRunner::class)
 class ProductRepositoryImplTest {
@@ -106,7 +108,7 @@ class ProductRepositoryImplTest {
     @Test
     fun `error with Network exception response`() = runTest {
         Mockito.`when`(serviceEndPoints.getProductList())
-            .thenReturn(Response.error(404, "Unknown Host Exception".toResponseBody()))
+            .thenReturn(Response.error(HttpURLConnection.HTTP_NOT_FOUND, "Unknown Host Exception".toResponseBody()))
         val repository = ProductRepositoryImpl(serviceEndPoints)
         val result = repository.getProductList()
         assertEquals(Status.ERROR, result.status)
@@ -117,7 +119,7 @@ class ProductRepositoryImplTest {
     @Test
     fun `error with empty invalid request `() = runTest {
         Mockito.`when`(serviceEndPoints.getProductList())
-            .thenReturn(Response.error(500, "Bad request".toResponseBody()))
+            .thenReturn(Response.error(HTTP_INTERNAL_ERROR, "Bad request".toResponseBody()))
         val repository = ProductRepositoryImpl(serviceEndPoints)
         val result = repository.getProductList()
         assertEquals(Status.ERROR, result.status)
@@ -152,7 +154,7 @@ class ProductRepositoryImplTest {
     @Test
     fun `error with Network exception product response`() = runTest {
         Mockito.`when`(serviceEndPoints.getProductDetails(productId.toString()))
-            .thenReturn(Response.error(404, "Unknown Host Exception".toResponseBody()))
+            .thenReturn(Response.error(HttpURLConnection.HTTP_NOT_FOUND, "Unknown Host Exception".toResponseBody()))
         val repository = ProductRepositoryImpl(serviceEndPoints)
         val result = repository.getProductDetails(productId.toString())
         assertEquals(Status.ERROR, result.status)
@@ -163,7 +165,7 @@ class ProductRepositoryImplTest {
     @Test
     fun `error with empty invalid product request `() = runTest {
         Mockito.`when`(serviceEndPoints.getProductDetails(productId.toString()))
-            .thenReturn(Response.error(500, "Bad request".toResponseBody()))
+            .thenReturn(Response.error(HttpURLConnection.HTTP_INTERNAL_ERROR, "Bad request".toResponseBody()))
         val repository = ProductRepositoryImpl(serviceEndPoints)
         val result = repository.getProductDetails(productId.toString())
         assertEquals(Status.ERROR, result.status)

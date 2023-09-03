@@ -13,6 +13,7 @@ import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.HttpURLConnection
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AllProductsTest {
@@ -37,7 +38,7 @@ class AllProductsTest {
     fun `get success list from server`() = runTest{
         val mockResponse = MockResponse()
         val content = Helper.readFileResource("/productList.json")
-        mockResponse.setResponseCode(200)
+        mockResponse.setResponseCode(HttpURLConnection.HTTP_OK)
         mockResponse.setBody(content)
         mockServer.enqueue(mockResponse)
         val response = serviceEndPoints.getProductList()
@@ -53,7 +54,7 @@ class AllProductsTest {
     fun `verify product list url is valid`() = runTest{
         val mockResponse = MockResponse()
         val content = Helper.readFileResource("/productList.json")
-        mockResponse.setResponseCode(200)
+        mockResponse.setResponseCode(HttpURLConnection.HTTP_OK)
         mockResponse.setBody(content)
         mockServer.enqueue(mockResponse)
         val response = serviceEndPoints.getProductList()
@@ -69,13 +70,13 @@ class AllProductsTest {
     @Test
     fun `get error message from server`() = runTest{
         val mockResponse = MockResponse()
-        mockResponse.setResponseCode(404)
+        mockResponse.setResponseCode(HttpURLConnection.HTTP_NOT_FOUND)
         mockResponse.setBody("Something went wrong")
         mockServer.enqueue(mockResponse)
         val response = serviceEndPoints.getProductList()
         mockServer.takeRequest()
         assertEquals(false, response.isSuccessful)
-        assertEquals(404, response.code())
+        assertEquals(HttpURLConnection.HTTP_NOT_FOUND, response.code())
 
     }
     /**
@@ -85,7 +86,7 @@ class AllProductsTest {
     fun `get empty list from server`() = runTest{
         val mockResponse = MockResponse()
         val content = "[]"
-        mockResponse.setResponseCode(200)
+        mockResponse.setResponseCode(HttpURLConnection.HTTP_OK)
         mockResponse.setBody(content)
         mockServer.enqueue(mockResponse)
         val response = serviceEndPoints.getProductList()
@@ -101,7 +102,7 @@ class AllProductsTest {
     fun `verify product details url is valid`() = runTest{
         val mockResponse = MockResponse()
         val content = "[]"
-        mockResponse.setResponseCode(200)
+        mockResponse.setResponseCode(HttpURLConnection.HTTP_OK)
         mockResponse.setBody(content)
         mockServer.enqueue(mockResponse)
         val response = serviceEndPoints.getProductList()

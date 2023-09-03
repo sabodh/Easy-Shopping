@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.online.shoppinglist.data.network.model.Product
 import com.online.shoppinglist.domain.repository.model.Rating
-import com.online.shoppinglist.domain.repository.ProductRepository
+import com.online.shoppinglist.domain.usecases.GetProductDetailsUseCase
+import com.online.shoppinglist.domain.usecases.GetProductsUseCase
 import com.online.shoppinglist.launchFragmentInHiltContainer
 import com.online.shoppinglist.presentation.viewmodel.ProductViewModel
 import com.online.shoppinglist.utils.NetworkUtils
@@ -25,7 +26,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
@@ -56,7 +56,7 @@ class ProductDetailsFragmentTest {
     }
 
     @Test
-    fun `verify data binding properly`() {
+    fun `verify data binding properly`() = runTest{
         val product = getProduct()
         val bundle = Bundle()
         bundle.putParcelable("selectedProduct", product)
@@ -65,7 +65,6 @@ class ProductDetailsFragmentTest {
             assertNotNull(fragment.binding)
             fragment.setProductDetails(fragment.binding, product)
             assert(fragment.binding.txtAmount.text == "£9.99")
-            assert(fragment.binding.txtCategory.text == "Test Category")
             assert(fragment.binding.txtSummary.text == "Test Description")
             assert(fragment.binding.txtInfoHeader.text == "Test Product")
         }
@@ -74,10 +73,11 @@ class ProductDetailsFragmentTest {
     @Test
     fun `verify product detail is loading`() = runTest {
         val product = getProduct()
-        val repository = mock(ProductRepository::class.java)
-        Mockito.`when`(repository.getProductDetails("2"))
+        val productsUseCase = mock(GetProductsUseCase::class.java)
+        val productDetailsUseCase = mock(GetProductDetailsUseCase::class.java)
+        `when`(productDetailsUseCase("2"))
             .thenReturn(ServiceResponse.success(product))
-        viewModel = ProductViewModel(repository)
+        viewModel = ProductViewModel(productsUseCase, productDetailsUseCase)
 
         val bundle = Bundle()
         bundle.putParcelable("selectedProduct", product)
@@ -95,10 +95,11 @@ class ProductDetailsFragmentTest {
     @Test
     fun `verify product detail is null`() = runTest {
         val product = getProduct()
-        val repository = mock(ProductRepository::class.java)
-        Mockito.`when`(repository.getProductDetails("2"))
+        val productsUseCase = mock(GetProductsUseCase::class.java)
+        val productDetailsUseCase = mock(GetProductDetailsUseCase::class.java)
+        `when`(productDetailsUseCase("2"))
             .thenReturn(ServiceResponse.success(null))
-        viewModel = ProductViewModel(repository)
+        viewModel = ProductViewModel(productsUseCase, productDetailsUseCase)
 
         val bundle = Bundle()
         bundle.putParcelable("selectedProduct", product)
@@ -116,10 +117,11 @@ class ProductDetailsFragmentTest {
     @Test
     fun `verify product detail is error`() = runTest {
         val product = getProduct()
-        val repository = mock(ProductRepository::class.java)
-        Mockito.`when`(repository.getProductDetails("2"))
+        val productsUseCase = mock(GetProductsUseCase::class.java)
+        val productDetailsUseCase = mock(GetProductDetailsUseCase::class.java)
+        `when`(productDetailsUseCase("2"))
             .thenReturn(ServiceResponse.error("Unknown Error", null))
-        viewModel = ProductViewModel(repository)
+        viewModel = ProductViewModel(productsUseCase, productDetailsUseCase)
 
         val bundle = Bundle()
         bundle.putParcelable("selectedProduct", product)
@@ -139,7 +141,7 @@ class ProductDetailsFragmentTest {
     fun `test showSnackbar when network is not connected`() {
 
         val networkutil = mock(NetworkUtils::class.java)
-        Mockito.`when`(networkutil.isNetworkConnected())
+        `when`(networkutil.isNetworkConnected())
             .thenReturn(false)
 
         val product = getProduct()

@@ -4,9 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.online.shoppinglist.data.network.model.Product
 import com.online.shoppinglist.domain.repository.model.Rating
 import com.online.shoppinglist.data.repository.ProductRepositoryImpl
+import com.online.shoppinglist.domain.usecases.GetProductDetailsUseCase
+import com.online.shoppinglist.domain.usecases.GetProductsUseCase
 import com.online.shoppinglist.utils.ServiceResponse
 import com.online.shoppinglist.utils.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -18,7 +21,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
 class ProductViewModelTest {
 
@@ -82,7 +85,9 @@ class ProductViewModelTest {
     fun `get successful product list`() = runTest {
         Mockito.`when`(repositoryImpl.getProductList())
             .thenReturn(ServiceResponse.success(productList))
-        val viewModel = ProductViewModel(repositoryImpl)
+        val productUseCase = GetProductsUseCase(repositoryImpl)
+        val productDetailsUseCase = GetProductDetailsUseCase(repositoryImpl)
+        val viewModel = ProductViewModel(productUseCase, productDetailsUseCase)
         viewModel.getProductList()
         testDispatcher.scheduler.advanceUntilIdle()
         val result = viewModel.products.getOrAwaitValue()
@@ -90,11 +95,14 @@ class ProductViewModelTest {
         assertEquals(productList.get(1), result.data!!.get(1))
     }
 
+
     @Test
     fun `get successful product empty list`() = runTest {
         Mockito.`when`(repositoryImpl.getProductList())
             .thenReturn(ServiceResponse.success(emptyList()))
-        val viewModel = ProductViewModel(repositoryImpl)
+        val productUseCase = GetProductsUseCase(repositoryImpl)
+        val productDetailsUseCase = GetProductDetailsUseCase(repositoryImpl)
+        val viewModel = ProductViewModel(productUseCase, productDetailsUseCase)
         viewModel.getProductList()
         testDispatcher.scheduler.advanceUntilIdle()
         val result = viewModel.products.getOrAwaitValue()
@@ -106,7 +114,9 @@ class ProductViewModelTest {
     fun `get error product empty list`() = runTest {
         Mockito.`when`(repositoryImpl.getProductList())
             .thenReturn(ServiceResponse.error("Unknown Error", emptyList()))
-        val viewModel = ProductViewModel(repositoryImpl)
+        val productUseCase = GetProductsUseCase(repositoryImpl)
+        val productDetailsUseCase = GetProductDetailsUseCase(repositoryImpl)
+        val viewModel = ProductViewModel(productUseCase, productDetailsUseCase)
         viewModel.getProductList()
         testDispatcher.scheduler.advanceUntilIdle()
         val result = viewModel.products.getOrAwaitValue()
@@ -119,7 +129,9 @@ class ProductViewModelTest {
     fun `get successful product details`() = runTest {
         Mockito.`when`(repositoryImpl.getProductDetails(productId.toString()))
             .thenReturn(ServiceResponse.success(getProduct()))
-        val viewModel = ProductViewModel(repositoryImpl)
+        val productUseCase = GetProductsUseCase(repositoryImpl)
+        val productDetailsUseCase = GetProductDetailsUseCase(repositoryImpl)
+        val viewModel = ProductViewModel(productUseCase, productDetailsUseCase)
         viewModel.getProductDetails(productId.toString())
         testDispatcher.scheduler.advanceUntilIdle()
         val result = viewModel.product.getOrAwaitValue()
@@ -131,7 +143,9 @@ class ProductViewModelTest {
     fun `get successful product empty result`() = runTest {
         Mockito.`when`(repositoryImpl.getProductDetails(productId.toString()))
             .thenReturn(ServiceResponse.success(null))
-        val viewModel = ProductViewModel(repositoryImpl)
+        val productUseCase = GetProductsUseCase(repositoryImpl)
+        val productDetailsUseCase = GetProductDetailsUseCase(repositoryImpl)
+        val viewModel = ProductViewModel(productUseCase, productDetailsUseCase)
         viewModel.getProductDetails(productId.toString())
         testDispatcher.scheduler.advanceUntilIdle()
         val result = viewModel.product.getOrAwaitValue()
@@ -143,7 +157,9 @@ class ProductViewModelTest {
     fun `get error product empty product details`() = runTest {
         Mockito.`when`(repositoryImpl.getProductDetails(productId.toString()))
             .thenReturn(ServiceResponse.error("Unknown Error", null))
-        val viewModel = ProductViewModel(repositoryImpl)
+        val productUseCase = GetProductsUseCase(repositoryImpl)
+        val productDetailsUseCase = GetProductDetailsUseCase(repositoryImpl)
+        val viewModel = ProductViewModel(productUseCase, productDetailsUseCase)
         viewModel.getProductDetails(productId.toString())
         testDispatcher.scheduler.advanceUntilIdle()
         val result = viewModel.product.getOrAwaitValue()

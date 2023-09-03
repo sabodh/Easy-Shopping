@@ -6,7 +6,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.online.shoppinglist.R
 import com.online.shoppinglist.data.network.model.Product
 import com.online.shoppinglist.domain.repository.model.Rating
-import com.online.shoppinglist.domain.repository.ProductRepository
+import com.online.shoppinglist.domain.usecases.GetProductDetailsUseCase
+import com.online.shoppinglist.domain.usecases.GetProductsUseCase
 import com.online.shoppinglist.launchFragmentInHiltContainer
 import com.online.shoppinglist.presentation.adapter.ProductListAdapter
 import com.online.shoppinglist.presentation.viewmodel.ProductViewModel
@@ -58,14 +59,15 @@ class ProductListFragmentTest() {
     @Test
     fun `verify product list is loading`() = runTest {
 
-        val repository = Mockito.mock(ProductRepository::class.java)
-        Mockito.`when`(repository.getProductList())
+        val productsUseCase = Mockito.mock(GetProductsUseCase::class.java)
+        val productDetailsUseCase = Mockito.mock(GetProductDetailsUseCase::class.java)
+        Mockito.`when`(productsUseCase())
             .thenReturn(ServiceResponse.success(productList))
 
         launchFragmentInHiltContainer<ProductListFragment>() {
             val fragment = this as ProductListFragment
             assertNotNull(fragment.binding)
-            val viewModel = ProductViewModel(repository)
+            val  viewModel = ProductViewModel(productsUseCase, productDetailsUseCase)
             viewModel.getProductList()
             testDispatcher.scheduler.advanceUntilIdle()
             val result = viewModel.products.getOrAwaitValue()
@@ -77,14 +79,15 @@ class ProductListFragmentTest() {
     @Test
     fun `verify product list is empty`() = runTest {
 
-        val repository = Mockito.mock(ProductRepository::class.java)
-        Mockito.`when`(repository.getProductList())
+        val productsUseCase = Mockito.mock(GetProductsUseCase::class.java)
+        val productDetailsUseCase = Mockito.mock(GetProductDetailsUseCase::class.java)
+        Mockito.`when`(productsUseCase())
             .thenReturn(ServiceResponse.success(emptyList()))
 
         launchFragmentInHiltContainer<ProductListFragment>() {
             val fragment = this as ProductListFragment
             assertNotNull(fragment.binding)
-            val viewModel = ProductViewModel(repository)
+            val viewModel = ProductViewModel(productsUseCase, productDetailsUseCase)
             viewModel.getProductList()
             testDispatcher.scheduler.advanceUntilIdle()
             val result = viewModel.products.getOrAwaitValue()
@@ -96,14 +99,15 @@ class ProductListFragmentTest() {
     @Test
     fun `verify product list with error`() = runTest {
 
-        val repository = Mockito.mock(ProductRepository::class.java)
-        Mockito.`when`(repository.getProductList())
+        val productsUseCase = Mockito.mock(GetProductsUseCase::class.java)
+        val productDetailsUseCase = Mockito.mock(GetProductDetailsUseCase::class.java)
+        Mockito.`when`(productsUseCase())
             .thenReturn(ServiceResponse.error("Unknown error", null))
 
         launchFragmentInHiltContainer<ProductListFragment>() {
             val fragment = this as ProductListFragment
             assertNotNull(fragment.binding)
-            val viewModel = ProductViewModel(repository)
+            val viewModel = ProductViewModel(productsUseCase, productDetailsUseCase)
             viewModel.getProductList()
             testDispatcher.scheduler.advanceUntilIdle()
             val result = viewModel.products.getOrAwaitValue()
