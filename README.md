@@ -50,7 +50,7 @@ A list of technologies/ features used within the project:
 3. User can add elements into the cart.
 4. Display an error message if the list cannot be loaded (e.g., no network).
 5. Instrumentation and unit tests are implemented. (Hilt DI used for instrumentation testing)
-6. ** Instrumentation tests - 43 nos. 
+6. ** unit tests - 43 nos. 
 7. Multiple screen support implemented, both portrait and landscape
 
 
