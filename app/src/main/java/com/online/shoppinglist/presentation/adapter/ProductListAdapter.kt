@@ -24,7 +24,7 @@ class ProductListAdapter(
             product.apply {
                 binding.apply {
                     txtProductName.text = title
-                    txtPrice.text = "£"+price.toString()
+                    txtPrice.text = "£${price}"
                     txtCategory.text = category
                     txtRating.text = context. getString(R.string.rating_only, product.rating.rate, product.rating.count)
                     imageUtils.loadImage(imageUrl = image, imageView)

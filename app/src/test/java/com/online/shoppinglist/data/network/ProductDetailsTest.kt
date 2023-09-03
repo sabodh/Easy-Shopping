@@ -14,6 +14,7 @@ import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.HttpURLConnection
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ProductDetailsTest {
@@ -40,7 +41,7 @@ class ProductDetailsTest {
     fun `get success product details`() = runTest {
         val mockResponse = MockResponse()
         val content = Helper.readFileResource("/product.json")
-        mockResponse.setResponseCode(200)
+        mockResponse.setResponseCode(HttpURLConnection.HTTP_OK)
         mockResponse.setBody(content)
         mockServer.enqueue(mockResponse)
         val response = serviceEndPoints.getProductDetails(PRODUCTID.toString())
@@ -60,7 +61,7 @@ class ProductDetailsTest {
     fun `get Product details properly`() = runTest {
         val mockResponse = MockResponse()
         val content = Helper.readFileResource("/product.json")
-        mockResponse.setResponseCode(200)
+        mockResponse.setResponseCode(HttpURLConnection.HTTP_OK)
         mockResponse.setBody(content)
         mockServer.enqueue(mockResponse)
         val response = serviceEndPoints.getProductDetails(PRODUCTID.toString())
@@ -86,13 +87,13 @@ class ProductDetailsTest {
     @Test
     fun `get response with error`() = runTest {
         val mockResponse = MockResponse()
-        mockResponse.setResponseCode(404)
+        mockResponse.setResponseCode(HttpURLConnection.HTTP_NOT_FOUND)
         mockResponse.setBody("Something went wrong")
         mockServer.enqueue(mockResponse)
         val response = serviceEndPoints.getProductDetails(PRODUCTID.toString())
         mockServer.takeRequest()
         Assert.assertEquals(false, response.isSuccessful)
-        Assert.assertEquals(404, response.code())
+        Assert.assertEquals(HttpURLConnection.HTTP_NOT_FOUND, response.code())
 
     }
 
@@ -103,7 +104,7 @@ class ProductDetailsTest {
     fun `get empty response`() = runTest {
         val mockResponse = MockResponse()
         val content = "{}"
-        mockResponse.setResponseCode(200)
+        mockResponse.setResponseCode(HttpURLConnection.HTTP_OK)
         mockResponse.setBody(content)
         mockServer.enqueue(mockResponse)
         val response = serviceEndPoints.getProductDetails(PRODUCTID.toString())
